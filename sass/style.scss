@@ -1,0 +1,136 @@
+@import "mixins";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-size: 10px;
+}
+
+body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  background-color: rgba(6, 40, 77, 0.5);
+
+}
+
+
+.registration-form {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+  row-gap: 20px;
+  justify-content: center;
+  max-width: 700px;
+  margin: auto;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  overflow: hidden;
+
+  @include media-tablet {
+    max-width: 70%;
+  }
+
+  @include media-mobile {
+    max-width: 90%;
+    row-gap: 10px;
+    padding: 15px;
+    font-size: 1.4rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    @include media-mobile {
+      width: 100%;
+    }
+
+    &_btn {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .error {
+      display: none;
+      position: absolute;
+      color: red;
+      bottom: -13px;
+      left: 0;
+      font-size: 1rem;
+
+      &_shown{
+        display: block;
+      }
+    }
+
+    label {
+      margin-bottom: 5px;
+    }
+
+    input {
+      min-width: 300px;
+
+      @include media-mobile {
+        min-width: auto;
+        width: 100%;
+      }
+    }
+
+    input::placeholder {
+      font-weight: 200;
+      font-size: 1.4rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1.6rem;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px #007bff;
+    }
+
+    input[type="password"]:invalid {
+      border-color: red;
+    }
+  }
+
+  button[type="submit"] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.6rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #0062cc;
+    }
+  }
+}
+
