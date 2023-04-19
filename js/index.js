@@ -1,5 +1,20 @@
 window.onload = function() {
 
+    const form = document.querySelector('.registration-form')
+    const errorFields = document.querySelectorAll('.error')
+    const inputFields = document.querySelectorAll('input')
+    const birthdateInput = document.querySelector('#birthdate')
+
+    const setTodayDateAsMaxBirthdate = (birthdateInput) => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        birthdateInput.max = `${year}-${month}-${day}`
+    }
+
+    setTodayDateAsMaxBirthdate(birthdateInput)
+
     const formValidationData = {
         firstName: {
             isFieldActivated: false,
@@ -41,46 +56,6 @@ window.onload = function() {
         password: '',
         confirmPassword: '',
     }
-
-// const setDateValue = (field, e) => {
-//     const fieldId = field.id
-//     const mask = new RegExp("^(0[1-9]|[12][0-9]|3[01])?-(0[1-9]|1[012])?-(19|20)?\\d{2}?$")
-//     let formattedValue = "";
-//     let value = e.target.value
-//
-//     if (value.length === 2 || value.length === 7 || value.length === 14) {
-//         console.log(mask.test(value))
-//     }
-//
-//     for (let i = 0; i < mask.length; i++) {
-//         const maskChar = mask[i];
-//         const inputChar = value[i];
-//         if (!inputChar) {
-//             break;
-//         }
-//
-//         if (/\d/.test(inputChar)) {
-//             formattedValue += inputChar;
-//             if (formattedValue.length === 2 || formattedValue.length === 5) {
-//                 formattedValue += "-";
-//             }
-//         }
-//     }
-//
-//     let parts = formattedValue.split("-");
-//     let year = parts[2];
-//     let month = parts[1] - 1;
-//     let day = parts[0];
-//
-//
-//     field.value = formattedValue
-//
-//
-//     let date = new Date(year, month, day);
-//
-//     formData[fieldId].value = date
-//     console.log(formData[fieldId])
-// }
 
     const handleCheckName = (fieldId) => {
 
@@ -166,6 +141,35 @@ window.onload = function() {
         return checkResult
     }
 
+    const handleBirthdate = (fieldId) => {
+        const checkResult = {
+            valid : false,
+            error: ''
+        }
+
+        if (registrationFormData[fieldId] === 'Invalid Date') {
+            checkResult.valid = false
+            checkResult.error = 'невалидная дата'
+            return checkResult
+        }
+
+        if (registrationFormData[fieldId] > new Date()) {
+            checkResult.valid = false
+            checkResult.error = 'не может быть больше, чем сегодня'
+            return checkResult
+        }
+
+        if (registrationFormData[fieldId] < new Date('1910-01-01')) {
+            checkResult.valid = false
+            checkResult.error = 'невалидная дата'
+            return checkResult
+        }
+
+        checkResult.valid = true
+        checkResult.error = ''
+        return checkResult
+    }
+
     const checkFieldValue = (field, e) => {
         const fieldId = field.id
         switch(fieldId) {
@@ -180,6 +184,9 @@ window.onload = function() {
                 formValidationData[fieldId].error = checkResultLastName.error
                 break;
             case 'birthdate':
+                const  checkResultBirthdate= handleBirthdate(fieldId)
+                formValidationData[fieldId].valid = checkResultBirthdate.valid
+                formValidationData[fieldId].error = checkResultBirthdate.error
                 break;
 
             case 'email':
@@ -202,10 +209,6 @@ window.onload = function() {
         }
     }
 
-    const form = document.querySelector('.registration-form')
-    const errorFields = document.querySelectorAll('.error')
-    const inputFields = document.querySelectorAll('input')
-
     const displayErrors = (fieldId) => {
         if (!formValidationData[fieldId].isFieldActivated) {
             return
@@ -225,6 +228,11 @@ window.onload = function() {
         }
     }
 
+    const handleIsActivatedFieldState = (e) => {
+        let activeField = e.target.id
+        formValidationData[activeField].isFieldActivated = true
+    }
+
     const eventInputHandler = (e) => {
         if (e.target.nodeName === 'INPUT') {
 
@@ -233,7 +241,7 @@ window.onload = function() {
             if (e.target.id !== 'birthdate') {
                 registrationFormData[activeField.id] = e.target.value
             } else {
-                // setDateValue(activeField, e)
+                registrationFormData[activeField.id] =new Date(e.target.value)
             }
 
             checkFieldValue(activeField, e)
@@ -243,21 +251,6 @@ window.onload = function() {
 
         }
     }
-
-    const handleIsActivatedFieldState = (e) => {
-        let activeField = e.target.id
-        formValidationData[activeField].isFieldActivated = true
-    }
-
-    form.addEventListener('click', (e) => eventInputHandler(e));
-    form.addEventListener('keyup', (e) => eventInputHandler(e));
-    form.addEventListener('input', (e) => eventInputHandler(e));
-    inputFields.forEach(input => {
-        input.addEventListener('blur', (e) => {
-            handleIsActivatedFieldState(e)
-            eventInputHandler(e)
-        })
-    })
 
     const handleSubmitForm = (e) => {
         e.preventDefault()
@@ -283,6 +276,15 @@ window.onload = function() {
         }
     }
 
+    form.addEventListener('click', (e) => eventInputHandler(e));
+    form.addEventListener('keyup', (e) => eventInputHandler(e));
+    form.addEventListener('input', (e) => eventInputHandler(e));
+    inputFields.forEach(input => {
+        input.addEventListener('blur', (e) => {
+            handleIsActivatedFieldState(e)
+            eventInputHandler(e)
+        })
+    })
     form.addEventListener('submit', (e) => handleSubmitForm(e))
 
 }
