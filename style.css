@@ -47,69 +47,72 @@ body {
     font-size: 1.4rem;
   }
 }
-.registration-form .form-group {
+
+.form-group {
   display: flex;
   flex-direction: column;
   position: relative;
 }
 @media screen and (max-width: 470px) {
-  .registration-form .form-group {
+  .form-group {
     width: 100%;
   }
 }
-.registration-form .form-group_btn {
+.form-group_btn {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.registration-form .form-group .error {
+.form-group .error {
   display: none;
   position: absolute;
   color: red;
-  bottom: -13px;
+  top: 64px;
   left: 0;
   font-size: 1rem;
 }
-.registration-form .form-group .error_shown {
+.form-group .error_shown {
   display: block;
 }
-.registration-form .form-group label {
+.form-group label {
   margin-bottom: 5px;
 }
-.registration-form .form-group input {
+.form-group input {
   min-width: 300px;
+  transition: all 0.3s;
+}
+.form-group input_error {
+  border-color: red;
 }
 @media screen and (max-width: 470px) {
-  .registration-form .form-group input {
+  .form-group input {
     min-width: auto;
     width: 100%;
   }
 }
-.registration-form .form-group input::placeholder {
+.form-group input::placeholder {
   font-weight: 200;
   font-size: 1.4rem;
 }
-.registration-form .form-group input[type=text],
-.registration-form .form-group input[type=date],
-.registration-form .form-group input[type=email],
-.registration-form .form-group input[type=password] {
+.form-group input[type=text],
+.form-group input[type=date],
+.form-group input[type=email],
+.form-group input[type=password] {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
   font-size: 1.6rem;
 }
-.registration-form .form-group input[type=text]:focus,
-.registration-form .form-group input[type=date]:focus,
-.registration-form .form-group input[type=email]:focus,
-.registration-form .form-group input[type=password]:focus {
+.form-group input[type=text]:focus,
+.form-group input[type=date]:focus,
+.form-group input[type=email]:focus,
+.form-group input[type=password]:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px #007bff;
 }
-.registration-form .form-group input[type=password]:invalid {
-  border-color: red;
-}
-.registration-form button[type=submit] {
+
+button[type=submit] {
   padding: 10px 20px;
   border-radius: 5px;
   border: none;
@@ -118,8 +121,15 @@ body {
   font-size: 1.6rem;
   cursor: pointer;
 }
-.registration-form button[type=submit]:hover {
+button[type=submit]:hover {
   background-color: #0062cc;
+}
+
+.registration-form__title {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

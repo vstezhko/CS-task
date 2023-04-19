@@ -49,6 +49,8 @@ body {
     font-size: 1.4rem;
   }
 
+}
+
   .form-group {
     display: flex;
     flex-direction: column;
@@ -133,5 +135,12 @@ body {
       background-color: #0062cc;
     }
   }
+
+
+.registration-form__title {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 

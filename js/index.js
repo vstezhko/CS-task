@@ -1,45 +1,45 @@
 window.onload = function() {
 
-    let isFieldActivated = {
-        firstName: false,
-        lastName: false,
-        birthdate: false,
-        email: false,
-        password: false,
-        confirmPassword: false,
-    }
-
-    let formData = {
+    const formValidationData = {
         firstName: {
-            value: '',
+            isFieldActivated: false,
             valid: false,
             error: '',
         },
         lastName: {
-            value: '',
+            isFieldActivated: false,
             valid: false,
             error: '',
         },
         birthdate: {
-            value: '',
+            isFieldActivated: false,
             valid: false,
             error: '',
         },
         email: {
-            value: '',
+            isFieldActivated: false,
             valid: false,
             error: '',
         },
         password: {
-            value: '',
+            isFieldActivated: false,
             valid: false,
             error: '',
         },
         confirmPassword: {
-            value: '',
+            isFieldActivated: false,
             valid: false,
             error: '',
         },
+    }
+
+    const registrationFormData = {
+        firstName: '',
+        lastName: '',
+        birthdate: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
     }
 
 // const setDateValue = (field, e) => {
@@ -82,7 +82,6 @@ window.onload = function() {
 //     console.log(formData[fieldId])
 // }
 
-
     const handleCheckName = (fieldId) => {
 
         const checkResult = {
@@ -90,7 +89,7 @@ window.onload = function() {
             error: ''
         }
 
-        if (formData[fieldId].value.length >= 2 && formData[fieldId].value.length <= 25) {
+        if (registrationFormData[fieldId].length >= 2 && registrationFormData[fieldId].length <= 25) {
             checkResult.valid = true
         } else {
             checkResult.valid = false
@@ -107,31 +106,31 @@ window.onload = function() {
             error: ''
         }
 
-        if (formData[fieldId].value.length < 8) {
+        if (registrationFormData[fieldId].length < 8) {
             checkResult.valid = false
             checkResult.error = 'минимум 8 символов'
             return checkResult
         }
 
-        if (!formData[fieldId].value.match(/[А-ЯA-Z]/)) {
+        if (!registrationFormData[fieldId].match(/[А-ЯA-Z]/)) {
             checkResult.valid = false
             checkResult.error = 'минимум 1 символ в верхнем регистре'
             return checkResult
         }
 
-        if (!/\d/.test(formData[fieldId].value)) {
+        if (!/\d/.test(registrationFormData[fieldId])) {
             checkResult.valid = false
             checkResult.error = 'минимум одна цифра 1-9'
             return checkResult
         }
 
-        if (!formData[fieldId].value.match(/[@#$%!]/)) {
+        if (!registrationFormData[fieldId].match(/[@#$%!]/)) {
             checkResult.valid = false
             checkResult.error = 'минимум 1 специальный символ из перечисленных !@#$%'
             return checkResult
         }
 
-        if (formData[fieldId].value !== formData.confirmPassword.value && formData.confirmPassword.value !== '' && formData.confirmPassword.value !== '') {
+        if (registrationFormData.password !== registrationFormData.confirmPassword && (registrationFormData.confirmPassword !== '' || registrationFormData.confirmPassword !== '')) {
             checkResult.valid = false
             checkResult.error = 'введенные пароли не совпадают'
             return checkResult
@@ -150,13 +149,13 @@ window.onload = function() {
 
         const patternEmail = new RegExp( /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i)
 
-        if (formData[fieldId].value.length === 0) {
+        if (registrationFormData[fieldId].length === 0) {
             checkResult.valid = false
             checkResult.error = 'это поле обязательно для заполнения'
             return checkResult
         }
 
-        if (!patternEmail.test(formData[fieldId].value)) {
+        if (!patternEmail.test(registrationFormData[fieldId])) {
             checkResult.valid = false
             checkResult.error = 'невалидный email'
             return checkResult
@@ -172,52 +171,43 @@ window.onload = function() {
         switch(fieldId) {
             case 'firstName':
                 const  checkResultName= handleCheckName(fieldId)
-                formData[fieldId].valid = checkResultName.valid
-                formData[fieldId].error = checkResultName.error
+                formValidationData[fieldId].valid = checkResultName.valid
+                formValidationData[fieldId].error = checkResultName.error
                 break;
             case 'lastName':
                 const  checkResultLastName= handleCheckName(fieldId)
-                formData[fieldId].valid = checkResultLastName.valid
-                formData[fieldId].error = checkResultLastName.error
+                formValidationData[fieldId].valid = checkResultLastName.valid
+                formValidationData[fieldId].error = checkResultLastName.error
                 break;
             case 'birthdate':
                 break;
 
             case 'email':
                 const checkResultEmail = handleCheckEmail(fieldId)
-                formData[fieldId].valid = checkResultEmail.valid
-                formData[fieldId].error = checkResultEmail.error
+                formValidationData[fieldId].valid = checkResultEmail.valid
+                formValidationData[fieldId].error = checkResultEmail.error
                 break;
 
             case 'password':
                 const checkResultPassword = handleCheckPassword(fieldId)
-                formData[fieldId].valid = checkResultPassword.valid
-                formData[fieldId].error = checkResultPassword.error
+                formValidationData[fieldId].valid = checkResultPassword.valid
+                formValidationData[fieldId].error = checkResultPassword.error
                 break;
 
             case 'confirmPassword':
                 const checkResultConfirmPassword = handleCheckPassword(fieldId)
-                formData[fieldId].valid = checkResultConfirmPassword.valid
-                formData[fieldId].error = checkResultConfirmPassword.error
+                formValidationData[fieldId].valid = checkResultConfirmPassword.valid
+                formValidationData[fieldId].error = checkResultConfirmPassword.error
                 break;
         }
     }
-
-
-    const firstName = document.querySelector('#firstName')
-    const secondName = document.querySelector('#lastName')
-    const birthdate = document.querySelector('#birthdate')
-    const email = document.querySelector('#email')
-    const password = document.querySelector('#password')
-    const confirmPassword = document.querySelector('#confirmPassword')
 
     const form = document.querySelector('.registration-form')
     const errorFields = document.querySelectorAll('.error')
     const inputFields = document.querySelectorAll('input')
 
-
     const displayErrors = (fieldId) => {
-        if (!isFieldActivated[fieldId]) {
+        if (!formValidationData[fieldId].isFieldActivated) {
             return
         }
 
@@ -227,8 +217,8 @@ window.onload = function() {
                 currErrorField = errorField
             }
         })
-        if (!formData[fieldId].valid) {
-            currErrorField.innerHTML = formData[fieldId].error
+        if (!formValidationData[fieldId].valid) {
+            currErrorField.innerHTML = formValidationData[fieldId].error
             currErrorField.classList.add('error_shown')
         } else {
             currErrorField.classList.remove('error_shown')
@@ -241,7 +231,7 @@ window.onload = function() {
             let activeField = e.target
 
             if (e.target.id !== 'birthdate') {
-                formData[activeField.id].value = e.target.value
+                registrationFormData[activeField.id] = e.target.value
             } else {
                 // setDateValue(activeField, e)
             }
@@ -256,11 +246,8 @@ window.onload = function() {
 
     const handleIsActivatedFieldState = (e) => {
         let activeField = e.target.id
-        isFieldActivated[activeField] = true
+        formValidationData[activeField].isFieldActivated = true
     }
-
-
-
 
     form.addEventListener('click', (e) => eventInputHandler(e));
     form.addEventListener('keyup', (e) => eventInputHandler(e));
@@ -272,7 +259,31 @@ window.onload = function() {
         })
     })
 
+    const handleSubmitForm = (e) => {
+        e.preventDefault()
 
+        Object.keys(formValidationData).forEach(field => {
+            formValidationData[field].isFieldActivated = true
+            formValidationData[field].error = "обязательное поле"
+            console.log(formValidationData[field].isFieldActivated)
+        })
+
+        let isAllFieldsValid = true
+
+        Object.keys(formValidationData).forEach(field => {
+            console.log(formValidationData[field].valid)
+            if (formValidationData[field].valid === false) {
+                displayErrors(field)
+                isAllFieldsValid = false
+            }
+        })
+
+        if (isAllFieldsValid) {
+            console.log('send data', registrationFormData)
+        }
+    }
+
+    form.addEventListener('submit', (e) => handleSubmitForm(e))
 
 
 
