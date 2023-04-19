@@ -142,6 +142,31 @@ window.onload = function() {
         return checkResult
     }
 
+    const handleCheckEmail = (fieldId) => {
+        const checkResult = {
+            valid : false,
+            error: ''
+        }
+
+        const patternEmail = new RegExp( /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i)
+
+        if (formData[fieldId].value.length === 0) {
+            checkResult.valid = false
+            checkResult.error = 'это поле обязательно для заполнения'
+            return checkResult
+        }
+
+        if (!patternEmail.test(formData[fieldId].value)) {
+            checkResult.valid = false
+            checkResult.error = 'невалидный email'
+            return checkResult
+        }
+
+        checkResult.valid = true
+        checkResult.error = ''
+        return checkResult
+    }
+
     const checkFieldValue = (field, e) => {
         const fieldId = field.id
         switch(fieldId) {
@@ -159,8 +184,9 @@ window.onload = function() {
                 break;
 
             case 'email':
-                const patternEmail = new RegExp( /^[_a-z0-9-\+-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i)
-                formData[fieldId].valid = patternEmail.test(formData[fieldId].value)
+                const checkResultEmail = handleCheckEmail(fieldId)
+                formData[fieldId].valid = checkResultEmail.valid
+                formData[fieldId].error = checkResultEmail.error
                 break;
 
             case 'password':
@@ -187,32 +213,32 @@ window.onload = function() {
 
     const form = document.querySelector('.registration-form')
     const errorFields = document.querySelectorAll('.error')
-
+    const inputFields = document.querySelectorAll('input')
 
 
     const displayErrors = (fieldId) => {
+        if (!isFieldActivated[fieldId]) {
+            return
+        }
+
         let currErrorField
         errorFields.forEach(errorField => {
-            console.log(errorField)
             if (errorField.dataset.name === fieldId) {
                 currErrorField = errorField
             }
         })
-        console.log(currErrorField)
         if (!formData[fieldId].valid) {
             currErrorField.innerHTML = formData[fieldId].error
             currErrorField.classList.add('error_shown')
         } else {
             currErrorField.classList.remove('error_shown')
         }
-        console.log('err', formData[fieldId].error)
     }
 
     const eventInputHandler = (e) => {
         if (e.target.nodeName === 'INPUT') {
 
             let activeField = e.target
-            isFieldActivated[activeField] = true
 
             if (e.target.id !== 'birthdate') {
                 formData[activeField.id].value = e.target.value
@@ -228,10 +254,23 @@ window.onload = function() {
         }
     }
 
+    const handleIsActivatedFieldState = (e) => {
+        let activeField = e.target.id
+        isFieldActivated[activeField] = true
+    }
+
+
+
+
     form.addEventListener('click', (e) => eventInputHandler(e));
     form.addEventListener('keyup', (e) => eventInputHandler(e));
     form.addEventListener('input', (e) => eventInputHandler(e));
-    // form.addEventListener('blur', (e) => eventInputHandler(e))
+    inputFields.forEach(input => {
+        input.addEventListener('blur', (e) => {
+            handleIsActivatedFieldState(e)
+            eventInputHandler(e)
+        })
+    })
 
 
 

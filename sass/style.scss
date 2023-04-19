@@ -69,7 +69,7 @@ body {
       display: none;
       position: absolute;
       color: red;
-      bottom: -13px;
+      top: 64px;
       left: 0;
       font-size: 1rem;
 
@@ -84,6 +84,11 @@ body {
 
     input {
       min-width: 300px;
+      transition: all 0.3s;
+
+      &_error {
+        border-color: red;
+      }
 
       @include media-mobile {
         min-width: auto;
@@ -112,10 +117,6 @@ body {
     input[type="password"]:focus {
       border-color: #007bff;
       box-shadow: 0 0 5px #007bff;
-    }
-
-    input[type="password"]:invalid {
-      border-color: red;
     }
   }
 
