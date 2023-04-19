@@ -285,7 +285,4 @@ window.onload = function() {
 
     form.addEventListener('submit', (e) => handleSubmitForm(e))
 
-
-
-
 }

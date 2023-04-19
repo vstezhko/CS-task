@@ -136,11 +136,31 @@ body {
     }
   }
 
-
 .registration-form__title {
   padding: 10px;
   display: flex;
   justify-content: center;
   width: 100%;
 }
+//
+//.password-label,
+//.confirmPassword-label {
+//  padding-right: 30px;
+//  position: relative;
+//}
+//
+//.password-label::after,
+//.confirmPassword-label::after  {
+//  content: ' ';
+//  z-index: 2;
+//  display: block;
+//  position: absolute;
+//  right: 0;
+//  top: 0;
+//  width: 20px;
+//  height: 20px;
+//  margin-right: 10px;
+//  cursor: pointer;
+//  background: url("assets/show.svg") no-repeat;
+//}
 
