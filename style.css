@@ -100,8 +100,12 @@ body {
 .form-group input[type=date] {
   -webkit-appearance: none;
   font-size: 1.6rem !important;
-  height: calc(1.6rem + 20px) !important;
   background-color: transparent !important;
+}
+@media screen and (max-width: 840px) {
+  .form-group input[type=date] {
+    height: calc(1.6rem + 20px + 1.6px) !important;
+  }
 }
 .form-group input[type=text],
 .form-group input[type=date],
