@@ -71,13 +71,9 @@ body {
       display: none;
       position: absolute;
       color: red;
-      top: 64px;
+      top: 100%;
       left: 0;
       font-size: 1rem;
-
-      @include media-mobile {
-        top: 61px;
-      }
 
       &_shown{
         display: block;
