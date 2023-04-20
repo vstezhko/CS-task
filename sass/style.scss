@@ -105,6 +105,7 @@ body {
 
     input[type="date"] {
       -webkit-appearance: none;
+      height: inherit !important;
     }
 
     input[type="text"],
