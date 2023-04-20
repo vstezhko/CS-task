@@ -147,7 +147,7 @@ window.onload = function() {
             error: ''
         }
 
-        if (registrationFormData[fieldId] === 'Invalid Date') {
+        if (registrationFormData[fieldId] instanceof Date && isNaN(registrationFormData[fieldId])) {
             checkResult.valid = false
             checkResult.error = 'невалидная дата'
             return checkResult
