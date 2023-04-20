@@ -33,6 +33,7 @@ body {
   background: #FFFFFF;
   border-radius: 5px;
   overflow: hidden;
+  max-height: 97%;
 }
 @media screen and (max-width: 840px) {
   .registration-form {
@@ -63,6 +64,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
 }
 .form-group .error {
   display: none;
@@ -71,6 +73,11 @@ body {
   top: 64px;
   left: 0;
   font-size: 1rem;
+}
+@media screen and (max-width: 470px) {
+  .form-group .error {
+    top: 61px;
+  }
 }
 .form-group .error_shown {
   display: block;
