@@ -70,14 +70,9 @@ body {
   display: none;
   position: absolute;
   color: red;
-  top: 64px;
+  top: 100%;
   left: 0;
   font-size: 1rem;
-}
-@media screen and (max-width: 470px) {
-  .form-group .error {
-    top: 61px;
-  }
 }
 .form-group .error_shown {
   display: block;
