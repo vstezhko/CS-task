@@ -100,7 +100,7 @@ body {
 .form-group input[type=date] {
   -webkit-appearance: none;
   font-size: 1.6rem !important;
-  max-height: calc(1.84rem + 20px + 1.6px) !important;
+  height: calc(1.84rem + 20px + 1.6px) !important;
   background-color: transparent !important;
 }
 .form-group input[type=text],

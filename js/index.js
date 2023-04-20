@@ -258,13 +258,11 @@ window.onload = function() {
         Object.keys(formValidationData).forEach(field => {
             formValidationData[field].isFieldActivated = true
             formValidationData[field].error = "обязательное поле"
-            console.log(formValidationData[field].isFieldActivated)
         })
 
         let isAllFieldsValid = true
 
         Object.keys(formValidationData).forEach(field => {
-            console.log(formValidationData[field].valid)
             if (formValidationData[field].valid === false) {
                 displayErrors(field)
                 isAllFieldsValid = false
@@ -272,7 +270,19 @@ window.onload = function() {
         })
 
         if (isAllFieldsValid) {
+
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(registrationFormData),
+            };
+
             console.log('send data', registrationFormData)
+
+            fetch('https://jsonplaceholder.typicode.com/posts', requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
         }
     }
 
