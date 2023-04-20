@@ -170,7 +170,7 @@ window.onload = function() {
         return checkResult
     }
 
-    const checkFieldValue = (field, e) => {
+    const checkFieldValue = (field) => {
         const fieldId = field.id
         switch(fieldId) {
             case 'firstName':
