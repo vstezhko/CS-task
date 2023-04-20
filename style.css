@@ -102,6 +102,9 @@ body {
   font-weight: 200;
   font-size: 1.4rem;
 }
+.form-group input[type=date] {
+  -webkit-appearance: none;
+}
 .form-group input[type=text],
 .form-group input[type=date],
 .form-group input[type=email],

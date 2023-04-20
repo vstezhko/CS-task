@@ -107,6 +107,10 @@ body {
       font-size: 1.4rem;
     }
 
+    input[type="date"] {
+      -webkit-appearance: none;
+    }
+
     input[type="text"],
     input[type="date"],
     input[type="email"],
