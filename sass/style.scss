@@ -106,10 +106,8 @@ body {
     input[type="date"] {
       -webkit-appearance: none;
       font-size: 1.6rem !important;
+      max-height: calc(1.6rem * 1.15 + 20px + 1.6px) !important;
       background-color: transparent !important;
-      @include media-tablet {
-        height: calc(1.6rem + 20px + 1.6px) !important;
-      }
     }
 
     input[type="text"],
